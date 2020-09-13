@@ -19,21 +19,17 @@ class Watcher():
     def __init__(self):
         self.event_handler = PatternMatchingEventHandler(["*.eu4"], "", True,
                                                          False)
-        self.event_handler.on_created = self.on_created
         self.event_handler.on_modified = self.on_modified
 
-    def on_created(self, event):
-        print('created', event.src_path)
-
     def on_modified(self, event):
-        if not event.src_path.startswith(self.bakPath):
-            print('modified', event.src_path)
-            file_path = Path(event.src_path)
-            new_file_path = os.path.join(
-                self.bakPath, file_path.stem +
-                datetime.now().strftime('_%y%m%d_%H%M%S') + file_path.suffix)
-            #print(new_file_path)
-            copy2(file_path, new_file_path)
+        if event.src_path.startswith(
+                self.bakPath) or 'Backup' in event.src_path:
+            return
+        file_path = Path(event.src_path)
+        new_file_path = os.path.join(
+            self.bakPath, file_path.stem +
+            datetime.now().strftime('_%y%m%d_%H%M%S') + file_path.suffix)
+        copy2(file_path, new_file_path)
 
     def change_path(self, path):
         self.path = path
