@@ -1,7 +1,12 @@
 from PySide2.QtWidgets import QMainWindow, QDialog, QFileDialog, QApplication, QMessageBox
 
 import sys
+import os
+from platform import system
 from pathlib import Path
+from shutil import copy2
+from datetime import datetime
+from subprocess import Popen
 
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
@@ -12,7 +17,8 @@ from ui.AboutDialog import Ui_AboutDialog
 
 class Watcher():
     def __init__(self):
-        self.event_handler = PatternMatchingEventHandler("*", "", True, False)
+        self.event_handler = PatternMatchingEventHandler(["*.eu4"], "", True,
+                                                         False)
         self.event_handler.on_created = self.on_created
         self.event_handler.on_modified = self.on_modified
 
@@ -20,10 +26,24 @@ class Watcher():
         print('created', event.src_path)
 
     def on_modified(self, event):
-        print('modified', event.src_path)
+        if not event.src_path.startswith(self.bakPath):
+            print('modified', event.src_path)
+            file_path = Path(event.src_path)
+            new_file_path = os.path.join(
+                self.bakPath, file_path.stem +
+                datetime.now().strftime('_%y%m%d_%H%M%S') + file_path.suffix)
+            #print(new_file_path)
+            copy2(file_path, new_file_path)
 
     def change_path(self, path):
         self.path = path
+        self.mkBakDir()
+
+    def mkBakDir(self):
+        bakPath = os.path.join(self.path, 'bak')
+        if not os.path.exists(bakPath):
+            os.mkdir(bakPath)
+        self.bakPath = bakPath
 
     def start(self):
         self.observer = Observer()
@@ -83,10 +103,23 @@ class MainWindow(QMainWindow):
             else:
                 QMessageBox.warning(self, "提示", "请先选择存档文件所在目录")
 
+    def btnOpenSaveFolderClick(self):
+        folder_path = self.currentSelectedSaveDir
+        if folder_path != '':
+            plt = system()
+            if (plt == 'Linux'):
+                Popen(['xdg-open', folder_path])
+            elif (plt == 'Windows'):
+                os.startfile(folder_path)
+            elif (plt == 'Darwin'):
+                os.system('open "%s"' % folder_path)
+
     def initCentralWidget(self):
         self.ui.pushButton_selectSaveDir.clicked.connect(
             self.selectSaveDirClick)
         self.ui.pushButton_run.clicked.connect(self.btnRunClick)
+        self.ui.pushButton_openFolder.clicked.connect(
+            self.btnOpenSaveFolderClick)
 
     def onSaveDirChange(self, path):
         self.ui.label_saveDir.setText(path)

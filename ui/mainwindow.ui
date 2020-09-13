@@ -24,7 +24,7 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,0">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,0,0">
         <property name="sizeConstraint">
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
@@ -63,13 +63,20 @@
         <item>
          <widget class="QPushButton" name="pushButton_selectSaveDir">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="text">
            <string>选择</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_openFolder">
+          <property name="text">
+           <string>打开</string>
           </property>
          </widget>
         </item>

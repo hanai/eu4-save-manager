@@ -57,13 +57,18 @@ class Ui_MainWindow(object):
 
         self.pushButton_selectSaveDir = QPushButton(self.centralwidget)
         self.pushButton_selectSaveDir.setObjectName(u"pushButton_selectSaveDir")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.pushButton_selectSaveDir.sizePolicy().hasHeightForWidth())
         self.pushButton_selectSaveDir.setSizePolicy(sizePolicy1)
 
         self.horizontalLayout.addWidget(self.pushButton_selectSaveDir)
+
+        self.pushButton_openFolder = QPushButton(self.centralwidget)
+        self.pushButton_openFolder.setObjectName(u"pushButton_openFolder")
+
+        self.horizontalLayout.addWidget(self.pushButton_openFolder)
 
         self.horizontalLayout.setStretch(1, 1)
 
@@ -74,8 +79,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setContentsMargins(20, -1, 20, -1)
         self.pushButton_run = QPushButton(self.centralwidget)
         self.pushButton_run.setObjectName(u"pushButton_run")
-        sizePolicy1.setHeightForWidth(self.pushButton_run.sizePolicy().hasHeightForWidth())
-        self.pushButton_run.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.pushButton_run.sizePolicy().hasHeightForWidth())
+        self.pushButton_run.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_3.addWidget(self.pushButton_run, 0, Qt.AlignRight|Qt.AlignBottom)
 
@@ -124,6 +132,7 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u5b58\u6863\u6587\u4ef6\u6240\u5728\u76ee\u5f55", None))
         self.label_saveDir.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.pushButton_selectSaveDir.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9", None))
+        self.pushButton_openFolder.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00", None))
         self.pushButton_run.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb", None))
         self.menu_help.setTitle(QCoreApplication.translate("MainWindow", u"\u5e2e\u52a9", None))
         self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
