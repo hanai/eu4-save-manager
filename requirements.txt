@@ -1,2 +1,5 @@
-PyQt5==5.15.0
-PyQt5-sip==12.8.1
+altgraph==0.17
+pathtools==0.1.2
+PySide2==5.15.0
+shiboken2==5.15.0
+watchdog==0.10.3
