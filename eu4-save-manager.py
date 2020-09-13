@@ -1,3 +1,4 @@
+from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QMainWindow, QDialog, QFileDialog, QApplication, QMessageBox
 
 import sys
@@ -134,6 +135,7 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setAttribute(Qt.AA_DisableWindowContextHelpButton)
     mainWindow = MainWindow()
     mainWindow.show()
     sys.exit(app.exec_())
