@@ -5,38 +5,16 @@ from PyQt5.QtGui import *
 import sys
 from pathlib import Path
 
-from MainWindow import Ui_MainWindow
+from ui.MainWindow import Ui_MainWindow
+from ui.AboutDialog import Ui_AboutDialog
 
 
-class AboutDialog(QDialog):
+class AboutDialog(QDialog, Ui_AboutDialog):
     def __init__(self, *args, **kwargs):
         super(AboutDialog, self).__init__(*args, **kwargs)
+        self.setupUi(self)
 
-        self.setWindowTitle('关于')
-
-        QBtn = QDialogButtonBox.Ok
-        self.buttonBox = QDialogButtonBox(QBtn)
         self.buttonBox.accepted.connect(self.accept)
-        self.buttonBox.rejected.connect(self.reject)
-
-        layout = QVBoxLayout()
-
-        title = QLabel('欧陆风云4 存档管理器')
-        font = title.font()
-        font.setPointSize(20)
-        title.setFont(font)
-
-        layout.addWidget(title)
-
-        layout.addWidget(QLabel('版本：0.0.1'))
-        layout.addWidget(QLabel('作者：槑小呆'))
-
-        for i in range(0, layout.count()):
-            layout.itemAt(i).setAlignment(Qt.AlignHCenter)
-
-        layout.addWidget(self.buttonBox)
-
-        self.setLayout(layout)
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
